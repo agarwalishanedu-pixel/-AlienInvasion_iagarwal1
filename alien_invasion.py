@@ -1,6 +1,7 @@
 import sys
 import pygame
 from settings import Settings
+from ship import Ship
 
 # This is the game class that contains the various methods
 class AlienInvasion:
@@ -21,6 +22,8 @@ class AlienInvasion:
 
         self.running: bool = True
         self.clock = pygame.time.Clock()
+
+        self.ship = Ship(self)
     
     def run_game(self):
         """
@@ -31,8 +34,13 @@ class AlienInvasion:
                 if event.type == pygame.QUIT:
                     self.running = False
                     pygame.quit()
-                    sys.exit()
+                    sys.exit()\
+
+            # This is adding the images in order
+            # Background       
             self.screen.blit(self.bg, (0, 0))
+            #Ship image
+            self.ship.draw()
             pygame.display.flip()
             self.clock.tick(self.settings.FPS)
             
