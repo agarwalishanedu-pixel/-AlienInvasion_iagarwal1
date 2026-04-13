@@ -1,8 +1,23 @@
+"""
+Program Name: settings.py
+My name: Ishan Agarwal
+Purpose: This file contains the settings for the game, including screen dimensions and speeds.
+Starter Code: No
+Date: 04/12/2026
+"""
+
 from pathlib import Path
 
 class Settings:
-    
+    """
+    This class contains the general setting for this game. 
+    """
+
     def __init__(self) -> None:
+        """
+        This initializes the settings for the game
+        """
+
         self.name: str = 'Alien Invasion'
         self.screen_w = 1200
         self.screen_h = 800

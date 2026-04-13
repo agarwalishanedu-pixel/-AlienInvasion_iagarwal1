@@ -1,3 +1,11 @@
+"""
+Program Name: alien_invasion.py
+My name: Ishan Agarwal
+Purpose: This specific file is where the main game loop is, and where the different classes come together. 
+Starter Code: Yes, primarily in the form of assets.
+Date: 04/12/2026
+"""
+
 import sys
 import pygame
 from settings import Settings
@@ -12,6 +20,7 @@ class AlienInvasion:
         """
         This is initializing the class and creating that initial display.
         """
+        
         pygame.init()
         self.settings = Settings()
 
@@ -37,6 +46,7 @@ class AlienInvasion:
         """
         This will contain the game loop
         """
+
         while self.running:
             self._check_events()   
             self.ship.update()
@@ -44,8 +54,11 @@ class AlienInvasion:
             self.clock.tick(self.settings.FPS)
 
     def _update_screen(self):
-        # This is adding the images in order
-        # Background 
+        """
+        This is adding the images in order
+        Background + Ship
+        """
+       
         self.screen.blit(self.bg, (0, 0))
 
         #Ship
@@ -53,6 +66,10 @@ class AlienInvasion:
         pygame.display.flip()
 
     def _check_events(self):
+        """
+        This is checking for the different events like key presses and releases, and quitting the game.
+        """
+
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 self.running = False
@@ -64,17 +81,23 @@ class AlienInvasion:
                 self._check_keyup_events(event)
     
     def _check_keyup_events(self, event) -> None:
-        # This checks if key is released and changes the movement flag to false
+        """
+        This checks if key is released and changes the movement flag to false
+        """
+        
         if event.key == pygame.K_UP:
             self.ship.moving_up = False
         elif event.key == pygame.K_DOWN:
             self.ship.moving_down = False
     
     def _check_keydown_events(self, event) -> None:
-        # This does the different events based on which key is down
+        """
+        This handles the different events based on which key is pressed
+        """
+
         if event.key == pygame.K_UP:
             self.ship.moving_up = True
-            
+
         elif event.key == pygame.K_DOWN:
             self.ship.moving_down = True
 
@@ -90,7 +113,11 @@ class AlienInvasion:
             
 
 if __name__ == '__main__':
-    # Create an instance of the object
+    """ 
+    Create an instance of the object
+    Runs the game
+    """
+    
     ai = AlienInvasion()
     ai.run_game()
  
