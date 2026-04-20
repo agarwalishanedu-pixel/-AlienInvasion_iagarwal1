@@ -3,7 +3,7 @@ Program Name: alien_invasion.py
 My name: Ishan Agarwal
 Purpose: This specific file is where the main game loop is, and where the different classes come together. 
 Starter Code: Yes, primarily in the form of assets.
-Date: 04/12/2026
+Date: 04/19/2026
 """
 
 import sys
@@ -68,6 +68,11 @@ class AlienInvasion:
             self.clock.tick(self.settings.FPS)
 
     def _check_collisions(self):
+        """
+        This checks for the different scenarious of collisions and resets level accordingly
+        """
+
+
         # Check for collisions for ship
         if self.ship.check_collisions(self.alien_fleet.fleet):
             self._check_game_status()
@@ -84,10 +89,15 @@ class AlienInvasion:
             self.impact.play()
             self.impact.fadeout(250)
 
+        # check if fleet is destroyed to reset level
         if self.alien_fleet.check_destroyed_status():
             self._reset_level()
         
     def _check_game_status(self):
+        """
+        This checks the game status and resets the level if necessary
+        """
+
         if self.game_stats.ships_left > 0:
             self.game_stats.ships_left -= 1
             self._reset_level()
@@ -98,7 +108,9 @@ class AlienInvasion:
         print(self.game_stats.ships_left)
     
     def _reset_level(self)-> None:
-        # This will reset level by creating new fleet
+        """ 
+        This will reset level by creating new fleet
+        """
         self.ship.arsenal.arsenal.empty()
         self.alien_fleet.fleet.empty()
         self.alien_fleet.create_fleet()

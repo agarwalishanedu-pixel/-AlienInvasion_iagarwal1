@@ -3,7 +3,7 @@ Program Name: settings.py
 My name: Ishan Agarwal
 Purpose: This file contains the settings for the game, including screen dimensions and speeds.
 Starter Code: No
-Date: 04/12/2026
+Date: 04/19/2026
 """
 
 from pathlib import Path
@@ -45,6 +45,6 @@ class Settings:
         self.alien_file = Path.cwd() / 'Assets' / 'images' / 'enemy_4.png'
         self.alien_w = 40
         self.alien_h = 40
-        self.fleet_speed = 1
+        self.fleet_speed = 5
         self.fleet_direction = 1
         self.fleet_drop_speed = 0.4

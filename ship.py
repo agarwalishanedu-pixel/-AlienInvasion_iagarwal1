@@ -3,7 +3,7 @@ Program Name: ship.py
 My name: Ishan Agarwal
 Purpose: This file contains the class that represents the player's ship, including its movement, positioning, and orientation.
 Starter Code: No
-Date: 04/12/2026
+Date: 04/19/2026
 """
 
 import pygame
@@ -42,6 +42,9 @@ class Ship:
         self.arsenal = arsenal
 
     def _center_ship(self):
+        """
+        This centers the ship on the left side of the screen, and is used for update and when the ship is hit by an alien
+        """
         self.rect.midleft = self.boundaries.midleft
         self.y = float(self.rect.y) 
 
@@ -84,6 +87,10 @@ class Ship:
         return self.arsenal.fire_bullet()
     
     def check_collisions(self, aliens) -> bool:
+        """
+        This checks for collisions between the ship and the aliens, and if there is a collision, it centers the ship and returns true
+        """
+
         if pygame.sprite.spritecollideany(self, aliens):
             self._center_ship()
             return True
