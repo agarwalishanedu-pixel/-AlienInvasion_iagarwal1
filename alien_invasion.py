@@ -11,7 +11,7 @@ import pygame
 from settings import Settings
 from ship import Ship
 from arsenal import ShipArsenal
-from alien import Alien
+from alien_fleet import AlienFleet
 
 
 # This is the game class that contains the various methods
@@ -42,7 +42,8 @@ class AlienInvasion:
 
 
         self.ship = Ship(self, ShipArsenal(self))
-        self.alien = Alien(self, 950, 10)
+        self.alien_fleet = AlienFleet(self)
+        self.alien_fleet.create_fleet()
     
     def run_game(self):
         """
@@ -52,7 +53,7 @@ class AlienInvasion:
         while self.running:
             self._check_events()   
             self.ship.update()
-            self.alien.update()
+            #self.alien.update()
             self._update_screen()
             self.clock.tick(self.settings.FPS)
 
@@ -67,7 +68,7 @@ class AlienInvasion:
         #Ship
         self.ship.draw()
         #Alien
-        self.alien.draw_alien()
+        self.alien_fleet.draw()
         pygame.display.flip()
 
     def _check_events(self):
