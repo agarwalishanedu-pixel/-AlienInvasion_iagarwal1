@@ -42,7 +42,7 @@ class AlienInvasion:
 
 
         self.ship = Ship(self, ShipArsenal(self))
-        self.alien = Alien(self, 900, 10)
+        self.alien = Alien(self, 950, 10)
     
     def run_game(self):
         """
