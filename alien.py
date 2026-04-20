@@ -11,7 +11,7 @@ class Alien(Sprite):
         self.game = game
 
         self.screen = game.screen
-        self.bounaries = game.screen.get_rect()
+        self.boundaries = game.screen.get_rect()
         self.settings = game.settings
 
         self.image = pygame.image.load(self.settings.alien_file)
@@ -27,8 +27,15 @@ class Alien(Sprite):
 
     def update(self) -> None:
         temp_speed = self.settings.fleet_speed
-        self.y += temp_speed
+        if self.check_edges():
+            self.settings.fleet_direction *= -1
+        
+        self.y += temp_speed * self.settings.fleet_direction
         self.rect.y = self.y
+
+    def check_edges(self) -> bool:
+        return(self.rect.bottom >= self.boundaries.bottom or self.rect.top <= 0)
+
 
     def draw_alien(self) -> None:
         #Draw the alien on screen
