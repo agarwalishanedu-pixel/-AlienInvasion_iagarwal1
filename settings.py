@@ -19,8 +19,8 @@ class Settings:
         """
 
         self.name: str = 'Alien Invasion'
-        self.screen_w = 1200
-        self.screen_h = 800
+        self.screen_w = 1000
+        self.screen_h = 600
         self.FPS = 60
         #Background Image
         self.bg_file = Path.cwd() / 'Assets' / 'images' / 'Starbasesnow.png'
@@ -38,3 +38,9 @@ class Settings:
         self.bullet_w = 25
         self.bullet_h = 80
         self.bullets_amount = 5
+
+        #Alien image
+        self.alien_file = Path.cwd() / 'Assets' / 'images' / 'enemy_4.png'
+        self.alien_w = 40
+        self.alien_h = 40
+        self.fleet_speed = 5
