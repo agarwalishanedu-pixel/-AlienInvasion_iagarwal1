@@ -68,7 +68,7 @@ class AlienInvasion:
     
 
         # Check collisions for aliens and bottom of screen
-        if self.alien_fleet.check_fleet_bottom():
+        if self.alien_fleet.check_fleet_left():
             self._reset_level()
 
         # Check collisions of projecties and aliens
@@ -77,6 +77,8 @@ class AlienInvasion:
             self.impact.play()
             self.impact.fadeout(250)
 
+        if self.alien_fleet.check_destroyed_status():
+            self._reset_level()
         
     def _reset_level(self)-> None:
         # This will reset level by creating new fleet
