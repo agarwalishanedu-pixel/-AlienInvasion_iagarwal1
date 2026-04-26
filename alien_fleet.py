@@ -44,9 +44,9 @@ class AlienFleet:
         screen_w = self.settings.screen_w
 
         half_screen = self.settings.screen_w // 2
-        fleet_w, fleet_h = self.calculate_fleet_size(alien_h, screen_w, alien_w, screen_h)
+        fleet_w, fleet_h = self.calculate_fleet_size(alien_h, screen_w, alien_w, screen_h, half_screen)
         
-        x_offset, y_offset = self.caclulate_offsets(alien_h, screen_h, alien_w, screen_w, half_screen, fleet_w, fleet_h)
+        x_offset, y_offset = self.caclulate_offsets(alien_h, screen_h, alien_w, half_screen, fleet_w, fleet_h)
 
         self._create_rectangle_fleet(alien_h, alien_w, fleet_w, fleet_h, x_offset, y_offset)
 
@@ -63,37 +63,36 @@ class AlienFleet:
                     continue
                 self._create_alien(current_x, current_y)
 
-    def caclulate_offsets(self, alien_h, screen_h, alien_w, screen_w, half_screen, fleet_w, fleet_h):
+    def caclulate_offsets(self, alien_h, screen_h, alien_w, half_screen, fleet_w, fleet_h):
         """
         This calculates the margins and offsets that are needed to make the fleet on the right half
         """
-
         fleet_vertical_space = fleet_h * alien_h
         fleet_horizontal_space = fleet_w * alien_w
+
         x_offset = int(half_screen + (half_screen - fleet_horizontal_space) // 2)
-        x_offset = min(x_offset, screen_w - fleet_horizontal_space - 10)
         y_offset = int((screen_h - fleet_vertical_space) // 2)
-        return x_offset,y_offset
+        return x_offset, y_offset
 
 
-    def calculate_fleet_size(self, alien_h, screen_w, alien_w, screen_h):
+    def calculate_fleet_size(self, alien_h, screen_w, alien_w, screen_h, half_screen):
         """
         This calculates the number of aliens that can fit in the two axis.
         """
 
-        fleet_h = (screen_w // alien_h)
-        fleet_w = (screen_h // alien_w)
-
-        if fleet_h % 2 == 0:
-            fleet_h -= 1
-        else:
-            fleet_h -= 2
-
+        fleet_w = (half_screen // alien_w)
+        fleet_h = (screen_h // alien_h)
 
         if fleet_w % 2 == 0:
             fleet_w -= 1
         else:
             fleet_w -= 2
+
+
+        if fleet_h % 2 == 0:
+            fleet_h -= 1
+        else:
+            fleet_h -= 2
 
 
         return fleet_w, fleet_h
