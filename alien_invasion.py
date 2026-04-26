@@ -16,6 +16,7 @@ from arsenal import ShipArsenal
 from alien_fleet import AlienFleet
 from time import sleep
 from button import Button
+from hud import Hud as HUD
 
 
 # This is the game class that contains the various methods
@@ -39,6 +40,8 @@ class AlienInvasion:
         self.bg = pygame.transform.scale(self.bg, 
                                          (self.settings.screen_w, self.settings.screen_h))
 
+        self.game_stats = GameStats(self)
+        self.HUD = HUD(self)
         self.running: bool = True
         self.clock = pygame.time.Clock()
 
@@ -93,6 +96,7 @@ class AlienInvasion:
             self.impact.play()
             self.impact.fadeout(250)
             self.game_stats.update(collisions)
+            self.HUD.update_scores()
 
         # check if fleet is destroyed to reset level
         if self.alien_fleet.check_destroyed_status():
@@ -130,6 +134,7 @@ class AlienInvasion:
         # Reset game stats
         self.game_stats.reset_stats()
         # Update HUD scores
+        self.HUD.update_scores()
         # reset level
         # recenter the ship
         self._reset_level()
@@ -150,6 +155,7 @@ class AlienInvasion:
         #Alien
         self.alien_fleet.draw()
         # draw HUD
+        self.HUD.draw()
 
         if not self.game_active:
             self.play_button.draw()
@@ -165,8 +171,10 @@ class AlienInvasion:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 self.running = False
+                self.game_stats.save_scores()
                 pygame.quit()
                 sys.exit()
+                
             elif event.type == pygame.KEYDOWN and self.game_active == True:
                 self._check_keydown_events(event)
             elif event.type == pygame.KEYUP:
@@ -207,8 +215,10 @@ class AlienInvasion:
         
         elif event.key == pygame.K_q:
             self.running = False
+            self.game_stats.save_scores()
             pygame.quit()
             sys.exit()
+
             
 
 if __name__ == '__main__':
