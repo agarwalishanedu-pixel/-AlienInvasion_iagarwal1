@@ -3,7 +3,7 @@ Program Name: alien_invasion.py
 My name: Ishan Agarwal
 Purpose: This specific file is where the main game loop is, and where the different classes come together. 
 Starter Code: Yes, primarily in the form of assets.
-Date: 04/19/2026
+Date: 04/26/2026
 """
 
 import sys
@@ -21,6 +21,9 @@ from hud import Hud as HUD
 
 # This is the game class that contains the various methods
 class AlienInvasion:
+    """
+    This is the main game file that connnects everything and runs
+    """
 
     def __init__(self) -> None:
         """
@@ -126,12 +129,17 @@ class AlienInvasion:
         """ 
         This will reset level by creating new fleet
         """
+
         self.ship.arsenal.arsenal.empty()
         self.alien_fleet.fleet.empty()
         self.alien_fleet.create_fleet()
         
 
     def restart_game(self):
+        """
+        This restarts the game when needed, and also resets the scores and levels
+        """
+
         self.settings.initialize_dynamic_settings()
         # Reset game stats
         self.game_stats.reset_stats()
@@ -184,6 +192,10 @@ class AlienInvasion:
                 self._check_button_clicked()
 
     def _check_button_clicked(self):
+        """
+        This is for the play button, and checks if it is clicked to start game
+        """
+
         mouse_pos = pygame.mouse.get_pos()
         if self.play_button.check_clicked(mouse_pos):
             self.restart_game()

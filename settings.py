@@ -3,7 +3,7 @@ Program Name: settings.py
 My name: Ishan Agarwal
 Purpose: This file contains the settings for the game, including screen dimensions and speeds.
 Starter Code: No
-Date: 04/19/2026
+Date: 04/26/2026
 """
 
 from pathlib import Path
@@ -19,13 +19,13 @@ class Settings:
         """
 
         self.name: str = 'Alien Invasion'
-        self.screen_w = 1000
-        self.screen_h = 600
+        self.screen_w = 1200
+        self.screen_h = 800
         self.FPS = 60
         #Background Image
         self.bg_file = Path.cwd() / 'Assets' / 'images' / 'Starbasesnow.png'
 
-        self.difficulty_scale = 1.1
+        self.difficulty_scale = 1.2
         self.scores_file = Path.cwd() / 'Assets' / 'file' / 'scores.json'
 
         #Ship image
@@ -59,6 +59,9 @@ class Settings:
 
 
     def initialize_dynamic_settings(self):
+        """
+        This initializes the setting that can change throughout the game
+        """
         self.ship_speed = 5
         self.starting_ship_count = 3
 
@@ -72,6 +75,9 @@ class Settings:
         self.alien_points = 50
             
     def increase_difficulty(self):
+        """
+        This is called when the player goes to the next level and makes the game harder
+        """
         self.ship_speed *= self.difficulty_scale
         self.bullet_speed *= self.difficulty_scale
         self.fleet_speed *= self.difficulty_scale

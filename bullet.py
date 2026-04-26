@@ -3,7 +3,7 @@ Program Name: bullet.py
 My name: Ishan Agarwal
 Purpose: This file contains the class that represents the bullets fired, which also include it's orientation and movement.
 Starter Code: No
-Date: 04/12/2026
+Date: 04/26/2026
 """
 
 import pygame

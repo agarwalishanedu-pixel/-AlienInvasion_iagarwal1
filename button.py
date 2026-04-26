@@ -1,3 +1,11 @@
+"""
+Program Name: button.py
+My name: Ishan Agarwal
+Purpose: This specific file is where I create the button class for the game start
+Starter Code: No, this is an entirely new file.
+Date: 04/26/2026
+"""
+
 import pygame.font
 
 from typing import TYPE_CHECKING
