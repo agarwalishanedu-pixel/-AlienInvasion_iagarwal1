@@ -15,6 +15,7 @@ from arsenal import ShipArsenal
 #from alien import Alien
 from alien_fleet import AlienFleet
 from time import sleep
+from button import Button
 
 
 # This is the game class that contains the various methods
@@ -49,7 +50,9 @@ class AlienInvasion:
 
         self.ship = Ship(self, ShipArsenal(self))
         self.alien_fleet = AlienFleet(self)
-        self.game_active = True
+
+        self.play_button = Button(self, 'Play')
+        self.game_active = False
     
 
     def run_game(self):
@@ -115,6 +118,17 @@ class AlienInvasion:
         self.alien_fleet.create_fleet()
         
 
+    def restart_game(self):
+        # setting up dynamic settings
+        # Reset game stats
+        # Update HUD scores
+        # reset level
+        # recenter the ship
+        self._reset_level()
+        self.ship._center_ship()
+        self.game_active = True
+        pygame.mouse.set_visible(False)
+
     def _update_screen(self):
         """
         This is adding the images in order
@@ -127,6 +141,11 @@ class AlienInvasion:
         self.ship.draw()
         #Alien
         self.alien_fleet.draw()
+
+        if not self.game_active:
+            self.play_button.draw()
+            pygame.mouse.set_visible(True)
+
         pygame.display.flip()
 
     def _check_events(self):
@@ -139,10 +158,17 @@ class AlienInvasion:
                 self.running = False
                 pygame.quit()
                 sys.exit()
-            elif event.type == pygame.KEYDOWN:
+            elif event.type == pygame.KEYDOWN and self.game_active == True:
                 self._check_keydown_events(event)
             elif event.type == pygame.KEYUP:
                 self._check_keyup_events(event)
+            elif event.type == pygame.MOUSEBUTTONDOWN:
+                self._check_button_clicked()
+
+    def _check_button_clicked(self):
+        mouse_pos = pygame.mouse.get_pos()
+        if self.play_button.check_clicked(mouse_pos):
+            self.restart_game()
     
     def _check_keyup_events(self, event) -> None:
         """
