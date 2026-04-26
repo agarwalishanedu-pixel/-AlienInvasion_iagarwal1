@@ -105,7 +105,9 @@ class AlienInvasion:
             #update game stats level
             self.game_stats.update_level()
             # update HUD view
-        
+            self.HUD.update_scores()
+            self.HUD.update_level()
+            
     def _check_game_status(self):
         """
         This checks the game status and resets the level if necessary
@@ -135,8 +137,7 @@ class AlienInvasion:
         self.game_stats.reset_stats()
         # Update HUD scores
         self.HUD.update_scores()
-        # reset level
-        # recenter the ship
+        # reset level+recenter the ship
         self._reset_level()
         self.ship._center_ship()
         self.game_active = True

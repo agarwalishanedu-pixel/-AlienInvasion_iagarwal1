@@ -15,13 +15,19 @@ class Hud:
                                      self.settings.HUD_font_size)
         self.padding = 20
         self.update_scores()
-        #self.setup_life_image()
-        #self.update_level()
+        self._setup_life_image()
+        self.update_level()
     
     def update_scores(self):
         self._update_max_score()
         self._update_score()
         self._update_hi_score()
+
+    def _setup_life_image(self):
+        self.life_image = pygame.image.load(self.settings.ship_file)
+        self.life_image = pygame.transform.scale(self.life_image, 
+                                                 (self.settings.ship_w, self.settings.ship_h))
+        self.life_rect = self.life_image.get_rect()
 
     def _update_score(self)-> None:
         score_str = f"Score: {self.game_stats.score: ,.0f}"
@@ -46,7 +52,25 @@ class Hud:
         self.hi_score_rect = self.hi_score_image.get_rect()
         self.hi_score_rect.midtop = (self.boundaries.centerx, self.padding)
 
+    def update_level(self)-> None:
+        level_str = f"Level: {self.game_stats.level}"
+        self.level_image = self.font.render(level_str, True, 
+                                            self.settings.text_color, None)
+        self.level_rect = self.level_image.get_rect()
+        self.level_rect.right = self.boundaries.right - self.padding
+        self.level_rect.bottom = self.boundaries.bottom - self.padding
+
+    def _draw_lives(self):
+        current_x = self.boundaries.right - self.padding - self.life_rect.width
+        current_y = self.level_rect.top - self.padding - self.life_rect.height
+        for _ in range(self.game_stats.ships_left):
+            self.screen.blit(self.life_image, (current_x, current_y))
+            current_x -= self.life_rect.width + self.padding
+
+
     def draw(self) -> None:
         self.screen.blit(self.score_image, self.score_rect)
         self.screen.blit(self.max_score_image, self.max_score_rect)
         self.screen.blit(self.hi_score_image, self.hi_score_rect)
+        self.screen.blit(self.level_image, self.level_rect)
+        self._draw_lives()
